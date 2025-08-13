@@ -66,28 +66,30 @@ runs:
 
   - name: Run delete-workflow-runs (max-days)
     shell: bash
-    if: ${{ inputs.max-days >= 0 }}
     env:
       INPUT_DRY_RUN: "${{ inputs.dry-run }}"
       INPUT_MAX_DAYS: "${{ inputs.max-days }}"
       INPUT_REPO_URL: "${{ inputs.repo-url }}"
     run: |
       # delete-workflow-runs (max-days)
-      pkg-26548 \
-        --dry-run "$INPUT_DRY_RUN" \
-        --repo-url "$INPUT_REPO_URL" \
-        --max-days "$INPUT_MAX_DAYS"
+      if "$INPUT_MAX_DAYS" > 0:
+        pkg-26548 \
+          --dry-run "$INPUT_DRY_RUN" \
+          --repo-url "$INPUT_REPO_URL" \
+          --max-days "$INPUT_MAX_DAYS"
+      fi
 
   - name: Run delete-workflow-runs (min-runs)
     shell: bash
-    if: ${{ inputs.min-runs >= 0 }}
     env:
       INPUT_DRY_RUN: "${{ inputs.dry-run }}"
       INPUT_MIN_RUNS: "${{ inputs.min-runs }}"
       INPUT_REPO_URL: "${{ inputs.repo-url }}"
     run: |
       # delete-workflow-runs (min-runs)
-      pkg-26548 \
-        --dry-run "$INPUT_DRY_RUN" \
-        --repo-url "$INPUT_REPO_URL" \
-        --min-runs "$INPUT_MIN_RUNS"
+      if "$INPUT_MIN_RUNS" > 0:
+        pkg-26548 \
+          --dry-run "$INPUT_DRY_RUN" \
+          --repo-url "$INPUT_REPO_URL" \
+          --min-runs "$INPUT_MIN_RUNS"
+      fi
