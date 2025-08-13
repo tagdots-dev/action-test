@@ -51,11 +51,11 @@ runs:
   - name: Check for mutually exclusive options
     shell: bash
     run: |
-      if [[ -n "${{ github.event.inputs.max-days }}" && -n "${{ github.event.inputs.min-runs }}" ]]; then
+      if [[ -n "${{ inputs.max-days }}" && -n "${{ inputs.min-runs }}" ]]; then
         echo "Error: max-days A and min-runs are mutually exclusive. Please select only one."
         exit 1
       fi
-      if [[ -z "${{ github.event.inputs.max-days }}" && -z "${{ github.event.inputs.min-runs }}" ]]; then
+      if [[ -z "${{ inputs.max-days }}" && -z "${{ inputs.min-runs }}" ]]; then
         echo "Error: At least one option (max-days or min-runs) must be selected."
         exit 1
       fi
