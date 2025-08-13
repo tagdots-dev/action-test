@@ -50,12 +50,16 @@ runs:
 
   - name: Check for mutually exclusive options
     shell: bash
+    env:
+      INPUT_MIN_RUNS: "${{ inputs.min-runs }}"
+      INPUT_MAX_DAYS: "${{ inputs.max-days }}"
     run: |
-      if [[ -n "${{ inputs.max-days }}" && -n "${{ inputs.min-runs }}" ]]; then
+      # check for mutually exclusive options
+      if [[ -n "$INPUT_MAX_DAYS" && -n "$INPUT_MIN_RUNS" ]]; then
         echo "Error: max-days A and min-runs are mutually exclusive. Please select only one."
         exit 1
       fi
-      if [[ -z "${{ inputs.max-days }}" && -z "${{ inputs.min-runs }}" ]]; then
+      if [[ -z "$INPUT_MAX_DAYS" && -z "$INPUT_MIN_RUNS" ]]; then
         echo "Error: At least one option (max-days or min-runs) must be selected."
         exit 1
       fi
@@ -68,6 +72,7 @@ runs:
       INPUT_MAX_DAYS: "${{ inputs.max-days }}"
       INPUT_REPO_URL: "${{ inputs.repo-url }}"
     run: |
+      # delete-workflow-runs (max-days)
       pkg-26548 \
         --dry-run "$INPUT_DRY_RUN" \
         --repo-url "$INPUT_REPO_URL" \
@@ -81,6 +86,7 @@ runs:
       INPUT_MIN_RUNS: "${{ inputs.min-runs }}"
       INPUT_REPO_URL: "${{ inputs.repo-url }}"
     run: |
+      # delete-workflow-runs (min-runs)
       pkg-26548 \
         --dry-run "$INPUT_DRY_RUN" \
         --repo-url "$INPUT_REPO_URL" \
