@@ -72,7 +72,7 @@ runs:
       INPUT_REPO_URL: "${{ inputs.repo-url }}"
     run: |
       # delete-workflow-runs (max-days)
-      if "$INPUT_MAX_DAYS" > 0; then
+      if $INPUT_MAX_DAYS >= 0; then
         pkg-26548 \
           --dry-run "$INPUT_DRY_RUN" \
           --repo-url "$INPUT_REPO_URL" \
@@ -87,7 +87,7 @@ runs:
       INPUT_REPO_URL: "${{ inputs.repo-url }}"
     run: |
       # delete-workflow-runs (min-runs)
-      if "$INPUT_MIN_RUNS" > 0; then
+      if $INPUT_MIN_RUNS >= 0; then
         pkg-26548 \
           --dry-run "$INPUT_DRY_RUN" \
           --repo-url "$INPUT_REPO_URL" \
