@@ -1,0 +1,87 @@
+name: action"
+
+description: 'delete workflow runs'
+
+author: tagdots
+
+branding:
+  icon: trash-2
+  color: green
+
+inputs:
+  dry-run:
+    description: 'Dry Run'
+    default: 'true'
+    required: false
+
+  min-runs:
+    description: 'Minimum number of runs to keep in each workflow'
+    required: false
+
+  max-days:
+    description: 'Maximum number of days to keep runs in each workflow'
+    required: false
+
+  repo-url:
+    description: 'Repository URL'
+    default: ${{ github.repository }}
+    required: true
+
+runs:
+  using: "composite"
+
+  steps:
+
+  - name: Checkout source code
+    uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+  - name: Install Python
+    uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+    with:
+      python-version: '3.12.x'
+
+  - name: Install the latest delete-workflow-runs
+    shell: bash
+    run: python -m pip install -U pkg_26548
+
+  - name: Run delete-workflow-runs to show version
+    shell: bash
+    run: pkg_26548 --version
+
+  - name: Check for mutually exclusive options
+    shell: bash
+    run: |
+      if [[ -n "${{ github.event.inputs.max-days }}" && -n "${{ github.event.inputs.min-runs }}" ]]; then
+        echo "Error: max-days A and min-runs are mutually exclusive. Please select only one."
+        exit 1
+      fi
+      if [[ -z "${{ github.event.inputs.max-days }}" && -z "${{ github.event.inputs.min-runs }}" ]]; then
+        echo "Error: At least one option (max-days or min-runs) must be selected."
+        exit 1
+      fi
+
+  - name: Run delete-workflow-runs (max-days)
+    shell: bash
+    if: ${{ inputs.max-days >= 0 }}
+    env:
+      INPUT_DRY_RUN: "${{ inputs.dry-run }}"
+      INPUT_MAX_DAYS: "${{ inputs.max-days }}"
+      INPUT_REPO_URL: "${{ inputs.repo-url }}"
+    run: |
+      pkg_26548 \
+        --dry-run "$INPUT_DRY_RUN" \
+        --repo-url "$INPUT_REPO_URL" \
+        --max-days "$INPUT_MAX_DAYS"
+
+  - name: Run delete-workflow-runs (min-runs)
+    shell: bash
+    if: ${{ inputs.min-runs >= 0 }}
+    env:
+      INPUT_DRY_RUN: "${{ inputs.dry-run }}"
+      INPUT_MIN_RUNS: "${{ inputs.min-runs }}"
+      INPUT_REPO_URL: "${{ inputs.repo-url }}"
+    run: |
+      pkg_26548 \
+        --dry-run "$INPUT_DRY_RUN" \
+        --repo-url "$INPUT_REPO_URL" \
+        --min-runs "$INPUT_MIN_RUNS"
