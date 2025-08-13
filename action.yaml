@@ -46,7 +46,7 @@ runs:
 
   - name: Run delete-workflow-runs to show version
     shell: bash
-    run: pkg_26548 --version
+    run: pkg-26548 --version
 
   - name: Check for mutually exclusive options
     shell: bash
@@ -68,7 +68,7 @@ runs:
       INPUT_MAX_DAYS: "${{ inputs.max-days }}"
       INPUT_REPO_URL: "${{ inputs.repo-url }}"
     run: |
-      pkg_26548 \
+      pkg-26548 \
         --dry-run "$INPUT_DRY_RUN" \
         --repo-url "$INPUT_REPO_URL" \
         --max-days "$INPUT_MAX_DAYS"
@@ -81,7 +81,7 @@ runs:
       INPUT_MIN_RUNS: "${{ inputs.min-runs }}"
       INPUT_REPO_URL: "${{ inputs.repo-url }}"
     run: |
-      pkg_26548 \
+      pkg-26548 \
         --dry-run "$INPUT_DRY_RUN" \
         --repo-url "$INPUT_REPO_URL" \
         --min-runs "$INPUT_MIN_RUNS"
