@@ -57,8 +57,8 @@ runs:
       INPUT_EXCLUDE_BRANCHES: "${{ inputs.exclude-branches }}"
     run: |
       # delete-branches
-      if [[ -n "$INPUT_MAX_IDLE_DAYS" && "$INPUT_MAX_IDLE_DAYS" -ge 0 && -n "$INPUT_REPO_URL" ]]; then
-        pkg-32828 \
+      if [[ -n "$INPUT_MAX_IDLE_DAYS" && "$INPUT_MAX_IDLE_DAYS" -ge 0 ]]; then
+        COLUMNS=140 pkg-32828 \
           --dry-run "$INPUT_DRY_RUN" \
           --repo-url "$INPUT_REPO_URL" \
           --max-idle-days "$INPUT_MAX_IDLE_DAYS" \
