@@ -65,4 +65,5 @@ runs:
           --exclude-branches "$INPUT_EXCLUDE_BRANCHES"
       else
         echo "Error: please check your inputs"
+        exit 1
       fi
