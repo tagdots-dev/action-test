@@ -6,7 +6,8 @@
 .DS_Store
 .AppleDouble
 .LSOverride
-Icon[]
+Icon[
+]
 
 # Thumbnails
 ._*
@@ -81,6 +82,7 @@ nohup.out
 
 
 # --------------- Miscellaneous ------------------- #
+.secrets
 *.key
 *.pem
 *.tmp
