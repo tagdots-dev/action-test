@@ -44,7 +44,6 @@ jobs:
         shell: bash
         run: pip install -U commitizen
 
-      # set and get build version
       - name: Set Build Version
         id: set-build-version
         shell: bash
