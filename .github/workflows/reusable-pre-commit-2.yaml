@@ -34,6 +34,7 @@ jobs:
           chmod +x hadolint
           sudo mv hadolint /usr/bin/
           hadolint --version
+
       - name: Setup pre-commit
         shell: bash
         run: make tf-install
