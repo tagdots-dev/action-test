@@ -40,7 +40,7 @@ jobs:
 
       - name: Run pre-commit on everything
         shell: bash
-        run: uv run pre-commit run -a -v
+        run: pre-commit run -a -v
 
   add-on-checkov:
     runs-on: ubuntu-latest
