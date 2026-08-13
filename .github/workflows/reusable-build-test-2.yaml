@@ -58,3 +58,4 @@ jobs:
         shell: bash
         run: |
           echo "Build Version: ${{ steps.set-build-version.outputs.BUILD_VERSION }}"
+
