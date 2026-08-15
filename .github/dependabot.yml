@@ -19,25 +19,6 @@ updates:
       - dependency-type: "indirect"
     cooldown:
       default-days: 3
-  - package-ecosystem: uv
-    directory: /
-    schedule:
-      interval: "cron"
-      cronjob: "15 0 * * 0"
-    open-pull-requests-limit: 1
-    rebase-strategy: "disabled"
-    versioning-strategy: increase
-    groups:
-      pip:
-        patterns:
-          - "*"
-    commit-message:
-      prefix: "[UV] "
-    allow:
-      - dependency-type: "direct"
-      - dependency-type: "indirect"
-    cooldown:
-      default-days: 3
   - package-ecosystem: pip
     directory: /
     schedule:
@@ -45,7 +26,7 @@ updates:
       cronjob: "15 0 * * 0"
     open-pull-requests-limit: 1
     rebase-strategy: "disabled"
-    versioning-strategy: increase
+    versioning-strategy: widen
     groups:
       uv:
         patterns:
