@@ -107,16 +107,20 @@ $RECYCLE.BIN/
 nohup.out
 
 
-
-
-
-
-
+# -------------------- AI ---------------------- #
+.claude/
+.clinerules/
+.cursor/
+.clineignore
+.continueignore
+.continuerc.json
 
 # --------------- Miscellaneous ------------------- #
 .secrets
 .vscode/
-*.key
-*.pem
 *.tmp
-id_rsa
+**/credentials.json
+**/*.key
+**/*.pem
+**/id_rsa
+**/secrets.json
